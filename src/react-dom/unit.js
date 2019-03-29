@@ -75,9 +75,14 @@ class ReactCompositeUnit extends BaseUnit {
     let { type: Component, props } = this._currentElement;
     this.compomentInstance = new Component(props);
     if (this.compomentInstance.componentWillMount) {
-      this.componentWillMount();
+      this.compomentInstance.componentWillMount();
     }
     let vDom = this.compomentInstance.render();
+    $(document).on("mounted", e => {
+      if (this.compomentInstance.componentDidMount) {
+        this.compomentInstance.componentDidMount();
+      }
+    });
     return createReactUnit(vDom).getMarkup(index);
   }
 }

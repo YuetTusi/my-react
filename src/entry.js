@@ -6,14 +6,20 @@ class Counter extends React.Component {
   constructor(props) {
     super(props);
   }
+  componentWillMount() {
+    console.log("will");
+  }
+  componentDidMount() {
+    console.log("did");
+  }
   render() {
     return React.createElement(
       "h1",
       null,
       "Hello React.",
-      React.createElement("h2", null, "h2"),
-      React.createElement("h2", null, "h2"),
-      React.createElement("h2", null, "h2")
+      React.createElement("h2", { className: "red" }, "h2"),
+      React.createElement("h2", { className: "green" }, "h2"),
+      React.createElement("h2", { className: "blue" }, "h2")
     );
   }
 }

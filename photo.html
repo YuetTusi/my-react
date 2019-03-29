@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+// loadPic("http://pic.dfrbbs.net/uploads/hewme1/DanaPang/01/"); //庞当娜
+// loadPic("http://pic.dfrbbs.net/uploads/hewme1/DanaPang/02/"); //庞当娜
+// loadPic("http://pic.dfrbbs.net/uploads/hewme1/DanaPang/03/"); //庞当娜
+// loadPic("http://pic.dfrbbs.net/uploads/hewme1/DanaPang/04/"); //庞当娜
+loadPic("http://pic.dfrbbs.net/uploads/hewme1/DanaPang/05/"); //庞当娜
+
+    //   loadPic("http://pic.dfrbbs.net/uploads/hewme1/DanaPang/01/"); //庞当娜
+    // loadPic("http://pic.dfrbbs.net/uploads/hewme1/AnnieChui/01/"); //崔安妮
+    // loadPic("http://pic.dfrbbs.net/uploads/hewme1/AnnieChui/02/"); //崔安妮
+    // loadPic("http://pic.dfrbbs.net/uploads/hewme1/AnnieChui/03/"); //崔安妮
+      //   loadPic("http://pic.dfrbbs.net/uploads/hewme1/AnnieChui/04/"); //崔安妮
+    //   loadPic("http://pic.dfrbbs.net/uploads/hewme1/AnnieChui/05/"); //崔安妮
+    //   loadPic("http://pic.dfrbbs.net/uploads/hewme1/AnnieChui/06/"); //崔安妮
+    //   loadPic("http://pic.dfrbbs.net/uploads/hewme1/AnnieChui/07/"); //崔安妮
+    //   loadPic("http://pic.dfrbbs.net/uploads/hewme1/AnnieChui/08/"); //崔安妮
+
+      function loadPic(url) {
+        for (var i = 1; i < 200; i++) {
+          var $img = document.createElement("img");
+          var no = i.toString().padStart(3, "0");
+          $img.src = url + no + ".jpg";
+          //   $img.src = `http://pic.dfrbbs.net/uploads/hewme1/AnnieChui/04/${no}.jpg`;
+          document.body.appendChild($img);
+          document.body.appendChild(document.createElement("br"));
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -13,7 +13,7 @@ let ReactDOM = {
     let unitInstance = createReactUnit(element);
     let markup = unitInstance.getMarkup(this.nextRootIndex);
 
-    $(container).html(markup);
+    container.appendChild(markup);
     $(document).trigger("mounted"); //将DOM挂载完成后，手动触发mounted事件
   }
 };

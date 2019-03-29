@@ -1,6 +1,9 @@
+const createElement = require("./element");
+const Component = require("./component");
+
 let React = {
-  //维护DOM编号
-  nextRootIndex: 0
+  createElement,
+  Component
 };
 
 module.exports = React;

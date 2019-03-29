@@ -1,23 +1,40 @@
 // const { Element } = require("./element");
 const ReactDOM = require("./react-dom");
-const createElement = require("./react/element");
+const React = require("./react");
 
-// const text = "Hello React";
-
-function test() {
-  alert(122);
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return React.createElement(
+      "h1",
+      null,
+      "Hello React.",
+      React.createElement("h2", null, "h2"),
+      React.createElement("h2", null, "h2"),
+      React.createElement("h2", null, "h2")
+    );
+  }
 }
 
-const vDom = createElement(
-  "div",
-  {
-    style: "border:5px solid green"
-  },
-  createElement("button", { id: "btn1", onClick: test }, "OK1"),
-  createElement("button", { id: "btn2", onClick: test }, "OK2"),
-  createElement("button", { id: "btn3", onClick: test }, "OK3")
-);
+let counter = React.createElement(Counter, { name: "计数器" });
 
-ReactDOM.render(vDom, document.getElementById("root"));
+ReactDOM.render(counter, document.getElementById("root"));
 
-// console.log(Element);
+// function test() {
+//   alert(122);
+// }
+
+// const vDom = createElement(
+//   "div",
+//   {
+//     style: "border:5px solid green",
+//     className: "green"
+//   },
+//   createElement("button", { id: "btn1", onClick: test }, "OK1"),
+//   createElement("button", { id: "btn2", onClick: test }, "OK2"),
+//   createElement("button", { id: "btn3", onClick: test }, "OK3")
+// );
+
+// ReactDOM.render(vDom, document.getElementById("root"));

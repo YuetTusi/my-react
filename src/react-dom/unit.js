@@ -52,32 +52,33 @@ class ReactNativeUnit extends BaseUnit {
     let tagName = type;
     let $dom = document.createElement(tagName);
     $dom.setAttribute("data-reactid", index);
-    if (props) {
-      //赋属性值
-      Object.entries(props).forEach(([key, val]) => {
-        if (/^on[A-Z]/.test(key)) {
-          //若是以on开头的属性，以委托的方式绑定事件
-          $(document).delegate(
-            `[data-reactid="${this._rootId}"]`,
-            key.slice(2).toLowerCase(),
-            val
-          );
-        } else {
-          $dom.setAttribute(key, val);
-        }
-      });
-    }
+    setUnitAttr($dom, props, index);
 
     children = children || [];
     children.forEach((item, i) => {
       //递归子元素
       let subInstance = createReactUnit(item);
-      // console.log(subInstance.getMarkup("abc"));
       $dom.appendChild(subInstance.getMarkup(`${this._rootId}.${i}`));
     });
-    // $dom.innerHTML = children.join(""); //将子元素的所有内容加到标签里
-
     return $dom;
+  }
+}
+
+/**
+ * @description VirtualDOM元素
+ */
+class ReactCompositeUnit extends BaseUnit {
+  constructor(element) {
+    super(element);
+  }
+  getMarkup(index) {
+    let { type: Component, props } = this._currentElement;
+    this.compomentInstance = new Component(props);
+    if (this.compomentInstance.componentWillMount) {
+      this.componentWillMount();
+    }
+    let vDom = this.compomentInstance.render();
+    return createReactUnit(vDom).getMarkup(index);
   }
 }
 
@@ -91,8 +92,46 @@ function createReactUnit(element) {
   if (typeof element === "string" || typeof element === "number") {
     return new ReactTextUnit(element);
   }
+  //是原生HTMLDOM
   if (typeof element === "object" && typeof element.type === "string") {
     return new ReactNativeUnit(element);
+  }
+  //是React 虚拟DOM
+  if (typeof element === "object" && typeof element.type === "function") {
+    return new ReactCompositeUnit(element);
+  }
+}
+
+/**
+ * @description 设置元素属性
+ * @param {Object} el 元素
+ * @param {Object} props 属性对象
+ * @param {Number} rootIndex 结点编号
+ */
+function setUnitAttr(el, props, rootIndex = 0) {
+  if (props) {
+    Object.entries(props).forEach(([name, val]) => {
+      if (/^on[A-Z]/.test(name)) {
+        //若是以on开头的属性，以委托的方式绑定事件
+        $(document).delegate(
+          `[data-reactid="${rootIndex}"]`,
+          name.slice(2).toLowerCase(),
+          val
+        );
+      } else {
+        switch (name) {
+          case "className":
+            el.setAttribute("class", val);
+            break;
+          case "htmlFor":
+            el.setAttribute("for", val);
+            break;
+          default:
+            el.setAttribute(name, val);
+            break;
+        }
+      }
+    });
   }
 }
 
